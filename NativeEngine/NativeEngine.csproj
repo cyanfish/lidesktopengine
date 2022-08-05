@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net6</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DefineConstants Condition=" '$(OS)' == 'Windows_NT' ">WINDOWS</DefineConstants>
+        <DefineConstants Condition=" '$(OS)' == 'OSX' ">MACOS</DefineConstants>
+        <DefineConstants Condition=" '$(OS)' == 'Unix' ">LINUX</DefineConstants>
+    </PropertyGroup>
+</Project>

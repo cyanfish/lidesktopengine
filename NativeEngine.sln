@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeEngine", "NativeEngine\NativeEngine.csproj", "{F1F23D03-7E04-4F7B-A425-4528E30900FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeEngine.Tests", "NativeEngine.Tests\NativeEngine.Tests.csproj", "{03FDEDE8-B288-4D74-B44E-9851B925103C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeEngine.Ui", "NativeEngine.Ui\NativeEngine.Ui.csproj", "{71D70B16-4B7F-49E9-9015-BFFBC627A9BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1F23D03-7E04-4F7B-A425-4528E30900FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F23D03-7E04-4F7B-A425-4528E30900FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F23D03-7E04-4F7B-A425-4528E30900FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F23D03-7E04-4F7B-A425-4528E30900FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03FDEDE8-B288-4D74-B44E-9851B925103C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03FDEDE8-B288-4D74-B44E-9851B925103C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03FDEDE8-B288-4D74-B44E-9851B925103C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03FDEDE8-B288-4D74-B44E-9851B925103C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D70B16-4B7F-49E9-9015-BFFBC627A9BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D70B16-4B7F-49E9-9015-BFFBC627A9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D70B16-4B7F-49E9-9015-BFFBC627A9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D70B16-4B7F-49E9-9015-BFFBC627A9BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
