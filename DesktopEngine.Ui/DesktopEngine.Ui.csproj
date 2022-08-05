@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\NativeEngine\NativeEngine.csproj" />
+      <ProjectReference Include="..\DesktopEngine\DesktopEngine.csproj" />
     </ItemGroup>
 
     <ItemGroup>

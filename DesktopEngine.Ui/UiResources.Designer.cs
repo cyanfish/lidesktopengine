@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NativeEngine.Ui {
+namespace DesktopEngine.Ui {
     using System;
     
     
@@ -28,7 +28,7 @@ namespace NativeEngine.Ui {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("NativeEngine.Ui.UiResources", typeof(UiResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("DesktopEngine.Ui.UiResources", typeof(UiResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -1,16 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeEngine", "NativeEngine\NativeEngine.csproj", "{F1F23D03-7E04-4F7B-A425-4528E30900FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopEngine", "DesktopEngine\DesktopEngine.csproj", "{F1F23D03-7E04-4F7B-A425-4528E30900FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeEngine.Tests", "NativeEngine.Tests\NativeEngine.Tests.csproj", "{03FDEDE8-B288-4D74-B44E-9851B925103C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopEngine.Tests", "DesktopEngine.Tests\DesktopEngine.Tests.csproj", "{03FDEDE8-B288-4D74-B44E-9851B925103C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeEngine.Ui", "NativeEngine.Ui\NativeEngine.Ui.csproj", "{71D70B16-4B7F-49E9-9015-BFFBC627A9BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopEngine.Ui", "DesktopEngine.Ui\DesktopEngine.Ui.csproj", "{71D70B16-4B7F-49E9-9015-BFFBC627A9BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeEngine.Mac", "NativeEngine.Mac\NativeEngine.Mac.csproj", "{D2335239-EF51-4B5E-99F6-FA77D0B1CB77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopEngine.Mac", "DesktopEngine.Mac\DesktopEngine.Mac.csproj", "{D2335239-EF51-4B5E-99F6-FA77D0B1CB77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeEngine.Gtk", "NativeEngine.Gtk\NativeEngine.Gtk.csproj", "{118E6B8B-B3E9-4DDB-982F-5CC8BB3AF35D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopEngine.Gtk", "DesktopEngine.Gtk\DesktopEngine.Gtk.csproj", "{118E6B8B-B3E9-4DDB-982F-5CC8BB3AF35D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeEngine.Wpf", "NativeEngine.Wpf\NativeEngine.Wpf.csproj", "{48D888B7-77B5-4E69-B00A-09F050CF0432}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopEngine.Wpf", "DesktopEngine.Wpf\DesktopEngine.Wpf.csproj", "{48D888B7-77B5-4E69-B00A-09F050CF0432}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

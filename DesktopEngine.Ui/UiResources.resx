@@ -19,10 +19,10 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="TitleText" xml:space="preserve">
-        <value>Lichess External Engine</value>
+        <value>Lichess Desktop Engine</value>
     </data>
     <data name="WelcomeMessage" xml:space="preserve">
-        <value>Welcome to the Lichess External Engine desktop application! Use your preferred chess engine on lichess.org/analysis, or use your desktop engine from your phone.</value>
+        <value>Welcome to the Lichess Desktop Engine application! Use your preferred chess engine on lichess.org/analysis, or use your desktop engine from your phone.</value>
     </data>
     <data name="Setup" xml:space="preserve">
         <value>Setup</value>

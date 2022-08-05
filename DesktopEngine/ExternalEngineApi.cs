@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace NativeEngine;
+namespace DesktopEngine;
 
 public class ExternalEngineApi
 {

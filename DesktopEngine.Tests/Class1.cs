@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace NativeEngine.Tests;
+namespace DesktopEngine.Tests;
 
 public class Class1
 {
