@@ -13,11 +13,12 @@ public class ExternalEngineApi
 // #endif
 
     public const int SUCCESS = 0;
-    public const int UNKNOWN_ERROR = 2;
+    public const int UNKNOWN_ERROR = 1;
     public const int ENGINE_ERROR = 2;
-    public const int DISCONNECTED = 3;
-    public const int CONNECTED_IDLE = 4;
-    public const int CONNECTED_RUNNING = 5;
+    public const int NOT_STARTED = 3;
+    public const int DISCONNECTED = 4;
+    public const int CONNECTED_IDLE = 5;
+    public const int CONNECTED_RUNNING = 6;
 
     [DllImport(DLL_NAME)]
     public static extern int StartListening(ref EngineConfig config);

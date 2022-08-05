@@ -15,4 +15,19 @@
       <ProjectReference Include="..\NativeEngine\NativeEngine.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Update="UiResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>UiResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="UiResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UiResources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

@@ -3,54 +3,75 @@ using Eto.Drawing;
 
 namespace NativeEngine.Ui
 {
-	public partial class MainForm : Form
-	{
-		public MainForm()
-		{
-			Title = "My Eto Form";
-			MinimumSize = new Size(200, 200);
+    public partial class MainForm : Form
+    {
+        private const int STATUS_UPDATE_INTERVAL = 1000;
 
-			Content = new StackLayout
-			{
-				Padding = 10,
-				Items =
-				{
-					$"Status: {ExternalEngineApi.GetStatus()}",
-					// add more controls here
-				}
-			};
+        private readonly Label _statusLabel = new Label();
+        private readonly Timer _statusUpdateTimer;
 
-			// create a few commands that can be used for the menu and toolbar
-			var clickMe = new Command { MenuText = "Click Me!", ToolBarText = "Click Me!" };
-			clickMe.Executed += (sender, e) => MessageBox.Show(this, "I was clicked!");
+        public MainForm()
+        {
+            Title = UiResources.TitleText;
+            MinimumSize = new Size(400, 100);
 
-			var quitCommand = new Command { MenuText = "Quit", Shortcut = Application.Instance.CommonModifier | Keys.Q };
-			quitCommand.Executed += (sender, e) => Application.Instance.Quit();
+            Content = new StackLayout
+            {
+                Padding = 10,
+                Items =
+                {
+                    new Label
+                    {
+                        Text = UiResources.WelcomeMessage
+                    },
+                    new StackLayout
+                    {
+                        Padding = 10,
+                        Spacing = 10,
+                        Orientation = Orientation.Horizontal,
+                        Items =
+                        {
+                            new Button
+                            {
+                                Text = UiResources.Setup
+                            },
+                            new Button
+                            {
+                                Text = UiResources.Start,
+                                Enabled = false
+                            }
+                        }
+                    }
+                }
+            };
 
-			var aboutCommand = new Command { MenuText = "About..." };
-			aboutCommand.Executed += (sender, e) => new AboutDialog().ShowDialog(this);
+            var aboutCommand = new Command { MenuText = UiResources.About };
+            aboutCommand.Executed += (_, _) => new AboutDialog().ShowDialog(this);
 
-			// create menu
-			Menu = new MenuBar
-			{
-				Items =
-				{
-					// File submenu
-					new SubMenuItem { Text = "&File", Items = { clickMe } },
-					// new SubMenuItem { Text = "&Edit", Items = { /* commands/items */ } },
-					// new SubMenuItem { Text = "&View", Items = { /* commands/items */ } },
-				},
-				ApplicationItems =
-				{
-					// application (OS X) or file menu (others)
-					new ButtonMenuItem { Text = "&Preferences..." },
-				},
-				QuitItem = quitCommand,
-				AboutItem = aboutCommand
-			};
+            Menu = new MenuBar
+            {
+                AboutItem = aboutCommand
+            };
 
-			// create toolbar			
-			ToolBar = new ToolBar { Items = { clickMe } };
-		}
-	}
+            Width = 400;
+
+            _statusUpdateTimer = new Timer(UpdateStatus, null, 0, STATUS_UPDATE_INTERVAL);
+        }
+
+        private void UpdateStatus(object _)
+        {
+            var status = ExternalEngineApi.GetStatus();
+            var statusText = status switch
+            {
+                ExternalEngineApi.NOT_STARTED => "Press Start to connect",
+                ExternalEngineApi.DISCONNECTED => "Trying to connect...",
+                ExternalEngineApi.CONNECTED_IDLE => "Connected, waiting for analysis request",
+                ExternalEngineApi.CONNECTED_RUNNING => "Connected, analysis in progress",
+                ExternalEngineApi.ENGINE_ERROR => "Error with engine setup",
+                ExternalEngineApi.UNKNOWN_ERROR => "Unknown error",
+                _ => "Unknown status"
+            };
+            _statusLabel.Text = statusText;
+        }
+    }
 }
