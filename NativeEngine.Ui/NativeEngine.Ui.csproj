@@ -1,16 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <OutputType>Exe</OutputType>
-        <RuntimeIdentifiers>osx-x64;osx-arm64</RuntimeIdentifiers>
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Eto.Forms" Version="2.7.0" />
-      <PackageReference Include="Eto.Platform.Mac64" Version="2.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NativeEngine\NativeEngine.csproj" />
     </ItemGroup>
 
 </Project>
