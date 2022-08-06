@@ -69,6 +69,12 @@ namespace DesktopEngine.Ui {
             }
         }
         
+        internal static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
         internal static string About {
             get {
                 return ResourceManager.GetString("About", resourceCulture);
@@ -126,6 +132,18 @@ namespace DesktopEngine.Ui {
         internal static string Browse {
             get {
                 return ResourceManager.GetString("Browse", resourceCulture);
+            }
+        }
+        
+        internal static string TryingToConnect {
+            get {
+                return ResourceManager.GetString("TryingToConnect", resourceCulture);
+            }
+        }
+        
+        internal static string WaitingForAnalysis {
+            get {
+                return ResourceManager.GetString("WaitingForAnalysis", resourceCulture);
             }
         }
     }

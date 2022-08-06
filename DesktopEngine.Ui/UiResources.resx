@@ -30,6 +30,9 @@
     <data name="Start" xml:space="preserve">
         <value>Start</value>
     </data>
+    <data name="Stop" xml:space="preserve">
+        <value>Stop</value>
+    </data>
     <data name="About" xml:space="preserve">
         <value>About</value>
     </data>
@@ -59,5 +62,11 @@
     </data>
     <data name="Browse" xml:space="preserve">
         <value>Browse</value>
+    </data>
+    <data name="TryingToConnect" xml:space="preserve">
+        <value>Trying to connect...</value>
+    </data>
+    <data name="WaitingForAnalysis" xml:space="preserve">
+        <value>Waiting for analysis request...</value>
     </data>
 </root>
