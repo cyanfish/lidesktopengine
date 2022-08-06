@@ -74,5 +74,59 @@ namespace DesktopEngine.Ui {
                 return ResourceManager.GetString("About", resourceCulture);
             }
         }
+        
+        internal static string MachineName {
+            get {
+                return ResourceManager.GetString("MachineName", resourceCulture);
+            }
+        }
+        
+        internal static string OauthToken {
+            get {
+                return ResourceManager.GetString("OauthToken", resourceCulture);
+            }
+        }
+        
+        internal static string Stockfish {
+            get {
+                return ResourceManager.GetString("Stockfish", resourceCulture);
+            }
+        }
+        
+        internal static string CustomEngine {
+            get {
+                return ResourceManager.GetString("CustomEngine", resourceCulture);
+            }
+        }
+        
+        internal static string CustomEnginePath {
+            get {
+                return ResourceManager.GetString("CustomEnginePath", resourceCulture);
+            }
+        }
+        
+        internal static string MaxHash {
+            get {
+                return ResourceManager.GetString("MaxHash", resourceCulture);
+            }
+        }
+        
+        internal static string MaxThreads {
+            get {
+                return ResourceManager.GetString("MaxThreads", resourceCulture);
+            }
+        }
+        
+        internal static string CreateToken {
+            get {
+                return ResourceManager.GetString("CreateToken", resourceCulture);
+            }
+        }
+        
+        internal static string Browse {
+            get {
+                return ResourceManager.GetString("Browse", resourceCulture);
+            }
+        }
     }
 }

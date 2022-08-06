@@ -33,4 +33,31 @@
     <data name="About" xml:space="preserve">
         <value>About</value>
     </data>
+    <data name="MachineName" xml:space="preserve">
+        <value>Machine Name</value>
+    </data>
+    <data name="OauthToken" xml:space="preserve">
+        <value>Lichess Oauth Token</value>
+    </data>
+    <data name="Stockfish" xml:space="preserve">
+        <value>Stockfish</value>
+    </data>
+    <data name="CustomEngine" xml:space="preserve">
+        <value>Custom Engine</value>
+    </data>
+    <data name="CustomEnginePath" xml:space="preserve">
+        <value>Custom Engine Path</value>
+    </data>
+    <data name="MaxHash" xml:space="preserve">
+        <value>Max Hash</value>
+    </data>
+    <data name="MaxThreads" xml:space="preserve">
+        <value>Max Threads</value>
+    </data>
+    <data name="CreateToken" xml:space="preserve">
+        <value>Create Token</value>
+    </data>
+    <data name="Browse" xml:space="preserve">
+        <value>Browse</value>
+    </data>
 </root>

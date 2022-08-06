@@ -7,6 +7,14 @@ namespace DesktopEngine.Ui
     {
         private const int STATUS_UPDATE_INTERVAL = 1000;
 
+        private readonly Button _startButton = new Button
+        {
+            Text = UiResources.Start
+        };
+        private readonly Button _setupButton = new Button
+        {
+            Text = UiResources.Setup
+        };
         private readonly Label _statusLabel = new Label();
         private readonly Timer _statusUpdateTimer;
 
@@ -14,6 +22,14 @@ namespace DesktopEngine.Ui
         {
             Title = UiResources.TitleText;
             MinimumSize = new Size(400, 100);
+
+            var setupCommand = new Command();
+            setupCommand.Executed += (_, _) => new SetupForm().Show();
+            _setupButton.Command = setupCommand;
+
+            var startCommand = new Command();
+            startCommand.Executed += (_, _) => { };
+            _startButton.Command = startCommand;
 
             Content = new StackLayout
             {
@@ -31,15 +47,8 @@ namespace DesktopEngine.Ui
                         Orientation = Orientation.Horizontal,
                         Items =
                         {
-                            new Button
-                            {
-                                Text = UiResources.Setup
-                            },
-                            new Button
-                            {
-                                Text = UiResources.Start,
-                                Enabled = false
-                            }
+                            _setupButton,
+                            _startButton
                         }
                     }
                 }
@@ -55,11 +64,22 @@ namespace DesktopEngine.Ui
 
             Width = 400;
 
-            _statusUpdateTimer = new Timer(UpdateStatus, null, 0, STATUS_UPDATE_INTERVAL);
+            UpdateStatus();
+            _statusUpdateTimer = new Timer(_ => UpdateStatus(), null, 0, STATUS_UPDATE_INTERVAL);
+            UserConfig.Saved += (_, _) => UpdateStatus();
         }
 
-        private void UpdateStatus(object _)
+        private void UpdateStatus()
         {
+            var config = UserConfig.Load();
+            if (!config.IsValid)
+            {
+                _statusLabel.Text = "";
+                _startButton.Enabled = false;
+                return;
+            }
+            _startButton.Enabled = true;
+
             var status = ExternalEngineApi.GetStatus();
             var statusText = status switch
             {
