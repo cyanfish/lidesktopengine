@@ -4,11 +4,11 @@ namespace DesktopEngine;
 
 public struct EngineConfig
 {
-    [MarshalAs(UnmanagedType.LPStr)]
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
     public string Id; // Unique persistent id
-    [MarshalAs(UnmanagedType.LPStr)]
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
     public string MachineName;
-    [MarshalAs(UnmanagedType.LPStr)]
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
     public string AuthToken;
     [MarshalAs(UnmanagedType.LPStr)]
     public string EnginePath;
