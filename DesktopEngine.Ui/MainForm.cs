@@ -90,7 +90,12 @@ namespace DesktopEngine.Ui
             };
 
             var aboutCommand = new Command { MenuText = UiResources.About };
-            aboutCommand.Executed += (_, _) => new AboutDialog().ShowDialog(this);
+            aboutCommand.Executed += (_, _) => new AboutDialog
+            {
+                // TODO: License, logo, and other metadata
+                Website = new Uri("https://github.com/cyanfish/lidesktopengine"),
+                WebsiteLabel = "Github"
+            }.ShowDialog(this);
 
             Menu = new MenuBar
             {
