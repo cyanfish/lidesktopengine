@@ -10,7 +10,6 @@ public class SetupForm : Form
     private const string CREATE_TOKEN_URL =
         "https://lichess.org/account/oauth/token/create?description=Lichess%20Desktop%20Engine&scopes[]=preference:read";
 
-    private readonly string _id;
     private readonly TextBox _machineName = new() { Width = 200 };
     private readonly TextBox _oauthToken = new() { Width = 200 };
     private readonly RadioButton _stockfish;
@@ -18,6 +17,8 @@ public class SetupForm : Form
     private readonly TextBox _customEnginePath = new() { Width = 200 };
     private readonly NumericMaskedTextBox<int> _maxHash = new();
     private readonly NumericMaskedTextBox<int> _maxThreads = new();
+
+    private readonly string _id;
 
     public SetupForm()
     {

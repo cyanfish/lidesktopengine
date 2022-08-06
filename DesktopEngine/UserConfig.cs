@@ -5,15 +5,15 @@ namespace DesktopEngine;
 
 public class UserConfig
 {
-    private static string _appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-    private static string _configFilePath = Path.Combine(_appData, "lidesktopengine", "config.json");
+    private static readonly string APP_DATA = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+    private static readonly string CONFIG_FILE_PATH = Path.Combine(APP_DATA, "lidesktopengine", "config.json");
 
     public static void Save(UserConfig config)
     {
         try
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(_configFilePath)!);
-            File.WriteAllText(_configFilePath, JsonConvert.SerializeObject(config));
+            Directory.CreateDirectory(Path.GetDirectoryName(CONFIG_FILE_PATH)!);
+            File.WriteAllText(CONFIG_FILE_PATH, JsonConvert.SerializeObject(config));
             Saved?.Invoke(null, EventArgs.Empty);
         }
         catch (Exception)
@@ -26,9 +26,9 @@ public class UserConfig
     {
         try
         {
-            if (File.Exists(_configFilePath))
+            if (File.Exists(CONFIG_FILE_PATH))
             {
-                return JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(_configFilePath));
+                return JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(CONFIG_FILE_PATH));
             }
         }
         catch (Exception)

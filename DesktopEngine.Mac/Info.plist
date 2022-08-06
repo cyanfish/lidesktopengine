@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>CFBundleName</key>
-    <string>Lichess External Engine</string>
+    <string>Lichess Desktop Engine</string>
     <key>CFBundleIdentifier</key>
     <string>org.lichess.DesktopEngine</string>
     <key>CFBundleShortVersionString</key>
