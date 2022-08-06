@@ -7,7 +7,8 @@ namespace DesktopEngine.Ui;
 public class SetupForm : Form
 {
     // TODO: Set the real scope needed
-    private const string CREATE_TOKEN_URL = "https://lichess.org/account/oauth/token/create?description=Lichess%20Desktop%20Engine&scopes[]=preference:read";
+    private const string CREATE_TOKEN_URL =
+        "https://lichess.org/account/oauth/token/create?description=Lichess%20Desktop%20Engine&scopes[]=preference:read";
 
     private readonly string _id;
     private readonly TextBox _machineName = new() { Width = 200 };
@@ -27,7 +28,8 @@ public class SetupForm : Form
         _customEngine = new(_stockfish) { Text = UiResources.CustomEngine };
 
         var createToken = new Command();
-        createToken.Executed += (_, _) => Process.Start("open", CREATE_TOKEN_URL);
+        createToken.Executed += (_, _) =>
+            Process.Start(new ProcessStartInfo(CREATE_TOKEN_URL) { UseShellExecute = true });
 
         var pickEngine = new Command();
         pickEngine.Executed += (_, _) =>
