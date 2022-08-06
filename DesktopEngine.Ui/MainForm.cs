@@ -62,7 +62,7 @@ public class MainForm : Form
         };
 
         var setupCommand = new Command();
-        setupCommand.Executed += (_, _) => new SetupForm().Show();
+        setupCommand.Executed += (_, _) => EtoHelpers.ShowSingletonForm<SetupForm>();
         _setupButton.Command = setupCommand;
 
         var startCommand = new Command();
