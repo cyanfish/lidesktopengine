@@ -14,7 +14,7 @@ public class MainForm : Form
 
     private readonly Button _startButton = new() { Text = UiResources.Start };
     private readonly Button _setupButton = new() { Text = UiResources.Setup };
-    private readonly ImageView _statusIndicator = new();
+    private readonly ImageView _statusIndicator = new() { Width = 16, Height = 16 };
     private readonly Label _statusLabel = new();
 
     private readonly Timer _statusUpdateTimer;
@@ -156,10 +156,13 @@ public class MainForm : Form
 
     private Bitmap DrawStatusBitmap(Color color)
     {
-        var bitmap = new Bitmap(16, 16, PixelFormat.Format32bppRgba);
+        const int s = 32; // Rendered size
+        const int d = 6; // Pixels between outer and inner circle
+        const int w = 2; // Width of outer circle
+        var bitmap = new Bitmap(s, s, PixelFormat.Format32bppRgba);
         using var graphics = new Graphics(bitmap);
-        graphics.DrawEllipse(color, 0, 0, 15, 15);
-        graphics.FillEllipse(color, 3, 3, 10, 10);
+        graphics.DrawEllipse(new Pen(color, w), w - 1, w - 1, s - w * 2 + 1, s - w * 2 + 1);
+        graphics.FillEllipse(color, d, d, s - 2 * d, s - 2 * d);
         return bitmap;
     }
 }
