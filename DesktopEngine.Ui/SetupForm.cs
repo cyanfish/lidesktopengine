@@ -15,6 +15,13 @@ public class SetupForm : Form
     private readonly RadioButton _stockfish;
     private readonly RadioButton _customEngine;
     private readonly TextBox _customEnginePath = new() { Width = 200 };
+    private readonly Button _browseButton = new Button
+    {
+        // TODO: Verify this works ok for accessibility
+        Text = "...",
+        ToolTip = UiResources.Browse,
+        Width = 30
+    };
     private readonly NumericMaskedTextBox<int> _maxHash = new();
     private readonly NumericMaskedTextBox<int> _maxThreads = new();
 
@@ -42,6 +49,7 @@ public class SetupForm : Form
                 _customEnginePath.Text = ofd.FileName;
             }
         };
+        _browseButton.Command = pickEngine;
 
         Content = new StackLayout
         {
@@ -71,14 +79,7 @@ public class SetupForm : Form
                     Items =
                     {
                         _customEnginePath,
-                        new Button
-                        {
-                            // TODO: Verify this works ok for accessibility
-                            Text = "...",
-                            ToolTip = UiResources.Browse,
-                            Command = pickEngine,
-                            Width = 30
-                        }
+                        _browseButton
                     }
                 },
                 Spacer(),
@@ -128,6 +129,7 @@ public class SetupForm : Form
     private void UpdateEnabled()
     {
         _customEnginePath.Enabled = _customEngine.Checked;
+        _browseButton.Enabled = _customEngine.Checked;
     }
 
     private Label Spacer()
