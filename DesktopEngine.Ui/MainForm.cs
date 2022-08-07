@@ -12,15 +12,13 @@ public class MainForm : Form
     private static readonly Color COLOR_WARN = Color.FromArgb(200, 150, 0);
     private static readonly Color COLOR_ERROR = Color.FromArgb(160, 0, 0);
 
-    private readonly Button _startButton = new() { Text = UiResources.Start };
+    private readonly Button _startButton = new() { Text = UiResources.Start, Enabled = false };
     private readonly Button _setupButton = new() { Text = UiResources.Setup };
     private readonly ImageView _statusIndicator = new() { Width = 16, Height = 16 };
     private readonly Label _statusLabel = new();
 
     private readonly Timer _statusUpdateTimer;
-    private Timer _demoTimer;
-    private bool _isStarted;
-    private bool _showRunningForDemo;
+    private int _currentStatus;
 
     public MainForm()
     {
@@ -68,16 +66,16 @@ public class MainForm : Form
         var startCommand = new Command();
         startCommand.Executed += (_, _) =>
         {
-            _demoTimer?.Dispose();
-            if (_isStarted)
+            if (_currentStatus == -1)
             {
-                _showRunningForDemo = false;
-                _isStarted = false;
+                // Start
+                DaemonService.StartServiceProcess();
                 UpdateStatus();
             }
             else
             {
-                _isStarted = true;
+                // Stop
+                DaemonService.SendKillMessage();
                 UpdateStatus();
             }
         };
@@ -97,34 +95,38 @@ public class MainForm : Form
         };
         Width = 400;
 
-        UpdateStatus();
-        _statusUpdateTimer = new Timer(_ =>
-            Application.Instance.Invoke(UpdateStatus), null, 0, STATUS_UPDATE_INTERVAL);
-        UserConfig.Saved += (_, _) =>
-            Application.Instance.Invoke(UpdateStatus);
+        _statusUpdateTimer = new Timer(_ => UpdateStatus(), null, 0, STATUS_UPDATE_INTERVAL);
+        UserConfig.Saved += (_, _) => UpdateStatus();
     }
 
     private void UpdateStatus()
     {
+        _currentStatus = DaemonService.SendGetStatusMessage();
+        Application.Instance.Invoke(UpdateStatusUi);
+    }
+
+    private void UpdateStatusUi()
+    {
         var config = UserConfig.Load();
 
-        _startButton.Text = _isStarted ? UiResources.Stop : UiResources.Start;
-        _startButton.Enabled = _isStarted || config.IsValid;
+        bool isRunning = _currentStatus != -1;
+        _startButton.Text = isRunning ? UiResources.Stop : UiResources.Start;
+        _startButton.Enabled = isRunning || config.IsValid;
 
-        if (!config.IsValid && !_isStarted)
+        if (!config.IsValid && !isRunning)
         {
             _statusLabel.Text = "";
             _statusIndicator.Visible = false;
             return;
         }
 
-        if (_showRunningForDemo)
+        if (_currentStatus == ExternalEngineApi.CONNECTED_IDLE)
         {
             _statusLabel.Text = UiResources.WaitingForAnalysis;
             _statusIndicator.Visible = true;
             _statusIndicator.Image = DrawStatusBitmap(COLOR_OK);
         }
-        else if (_isStarted)
+        else if (_currentStatus == ExternalEngineApi.DISCONNECTED)
         {
             _statusLabel.Text = UiResources.TryingToConnect;
             _statusIndicator.Visible = true;
@@ -141,13 +143,8 @@ public class MainForm : Form
             //     _ => "Unknown status"
             // };
             // _statusLabel.Text = statusText;
-            _demoTimer = new Timer(_ =>
-            {
-                _showRunningForDemo = true;
-                Application.Instance.Invoke(UpdateStatus);
-            }, null, 2000, 0);
         }
-        else
+        else if (_currentStatus == -1)
         {
             _statusLabel.Text = "";
             _statusIndicator.Visible = false;
