@@ -8,10 +8,10 @@ public class MainForm : Form
 {
     private const int STATUS_UPDATE_INTERVAL = 1000;
 
-    private static readonly Color COLOR_INACTIVE = Color.FromArgb(96, 96, 96);
-    private static readonly Color COLOR_OK = Color.FromArgb(0, 160, 0);
-    private static readonly Color COLOR_WARN = Color.FromArgb(200, 150, 0);
-    private static readonly Color COLOR_ERROR = Color.FromArgb(160, 0, 0);
+    private static readonly Bitmap STATUS_INACTIVE =  DrawStatusBitmap(Color.FromArgb(96, 96, 96));
+    private static readonly Bitmap STATUS_OK = DrawStatusBitmap(Color.FromArgb(0, 160, 0));
+    private static readonly Bitmap STATUS_WARN = DrawStatusBitmap(Color.FromArgb(200, 150, 0));
+    private static readonly Bitmap STATUS_ERROR = DrawStatusBitmap(Color.FromArgb(160, 0, 0));
 
     private readonly Button _startButton = new() { Text = UiResources.Start, Enabled = false };
     private readonly Button _setupButton = new() { Text = UiResources.Setup };
@@ -153,13 +153,13 @@ public class MainForm : Form
         {
             _statusLabel.Text = UiResources.WaitingForAnalysis;
             _statusIndicator.Visible = true;
-            _statusIndicator.Image = DrawStatusBitmap(COLOR_OK);
+            _statusIndicator.Image = STATUS_OK;
         }
         else if (_currentStatus == ExternalEngineApi.DISCONNECTED)
         {
             _statusLabel.Text = UiResources.TryingToConnect;
             _statusIndicator.Visible = true;
-            _statusIndicator.Image = DrawStatusBitmap(COLOR_WARN);
+            _statusIndicator.Image = STATUS_WARN;
             // var status = ExternalEngineApi.GetStatus();
             // var statusText = status switch
             // {
@@ -180,7 +180,7 @@ public class MainForm : Form
         }
     }
 
-    private Bitmap DrawStatusBitmap(Color color)
+    private static Bitmap DrawStatusBitmap(Color color)
     {
         const int s = 32; // Rendered size
         const int d = 6; // Pixels between outer and inner circle
