@@ -146,5 +146,11 @@ namespace DesktopEngine.Ui {
                 return ResourceManager.GetString("WaitingForAnalysis", resourceCulture);
             }
         }
+        
+        internal static string RunOnStartup {
+            get {
+                return ResourceManager.GetString("RunOnStartup", resourceCulture);
+            }
+        }
     }
 }

@@ -69,4 +69,7 @@
     <data name="WaitingForAnalysis" xml:space="preserve">
         <value>Waiting for analysis request...</value>
     </data>
+    <data name="RunOnStartup" xml:space="preserve">
+        <value>Run on startup</value>
+    </data>
 </root>

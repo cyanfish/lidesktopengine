@@ -9,6 +9,7 @@ class Program
 	[STAThread]
 	public static void Main(string[] args)
 	{
+		OsServiceManager.Instance = new MacServiceManager();
 		if (args.Any(x => x == "--service"))
 		{
 			DaemonService.Run();

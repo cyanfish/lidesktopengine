@@ -15,6 +15,7 @@ public static class DaemonService
     
     public static void Run()
     {
+        // TODO: Validate and use config
         new Timer(_ => _demoStatus = 5, null, 1500, 0);
         using var pipeServer = new NamedPipeServerStream(PIPE_NAME, PipeDirection.InOut);
         while (true)

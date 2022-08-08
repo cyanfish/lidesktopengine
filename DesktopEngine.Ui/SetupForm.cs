@@ -24,6 +24,7 @@ public class SetupForm : Form
     };
     private readonly NumericMaskedTextBox<int> _maxHash = new();
     private readonly NumericMaskedTextBox<int> _maxThreads = new();
+    private readonly CheckBox _runOnStartup = new() { Text = UiResources.RunOnStartup };
 
     private readonly string _id;
 
@@ -87,7 +88,9 @@ public class SetupForm : Form
                 _maxHash,
                 Spacer(),
                 UiResources.MaxThreads,
-                _maxThreads
+                _maxThreads,
+                Spacer(),
+                _runOnStartup
             }
         };
 
@@ -100,7 +103,8 @@ public class SetupForm : Form
         _customEnginePath.Text = config.CustomEnginePath;
         _maxHash.Text = config.MaxHash.ToString();
         _maxThreads.Text = config.MaxThreads.ToString();
-
+        _runOnStartup.Checked = OsServiceManager.Instance?.IsRegistered ?? false;
+        
         UpdateEnabled();
         _stockfish.CheckedChanged += (_, _) => UpdateEnabled();
 
@@ -110,6 +114,20 @@ public class SetupForm : Form
         _customEnginePath.TextChanged += SaveChanges;
         _maxHash.TextChanged += SaveChanges;
         _maxThreads.TextChanged += SaveChanges;
+
+        _runOnStartup.Visible = OsServiceManager.Instance != null;
+        _runOnStartup.CheckedChanged += (_, _) =>
+        {
+            if ((bool) _runOnStartup.Checked)
+            {
+                OsServiceManager.Instance.Register();
+            }
+            else
+            {
+                OsServiceManager.Instance.Unregister();
+            }
+            SaveChanges(null, EventArgs.Empty);
+        };
     }
 
     private void SaveChanges(object sender, EventArgs args)
