@@ -152,5 +152,11 @@ namespace DesktopEngine.Ui {
                 return ResourceManager.GetString("RunOnStartup", resourceCulture);
             }
         }
+        
+        internal static string KeepRunningOnClose {
+            get {
+                return ResourceManager.GetString("KeepRunningOnClose", resourceCulture);
+            }
+        }
     }
 }

@@ -72,4 +72,7 @@
     <data name="RunOnStartup" xml:space="preserve">
         <value>Run on startup</value>
     </data>
+    <data name="KeepRunningOnClose" xml:space="preserve">
+        <value>Do you want to keep the desktop engine service running in the background?</value>
+    </data>
 </root>

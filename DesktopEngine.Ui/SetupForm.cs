@@ -15,7 +15,7 @@ public class SetupForm : Form
     private readonly RadioButton _stockfish;
     private readonly RadioButton _customEngine;
     private readonly TextBox _customEnginePath = new() { Width = 200 };
-    private readonly Button _browseButton = new Button
+    private readonly Button _browseButton = new()
     {
         // TODO: Verify this works ok for accessibility
         Text = "...",

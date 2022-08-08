@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Eto.Forms;
 using Eto.Drawing;
 
@@ -19,6 +20,7 @@ public class MainForm : Form
 
     private readonly Timer _statusUpdateTimer;
     private int _currentStatus;
+    private bool _isStartedFromThisInstance;
 
     public MainForm()
     {
@@ -71,6 +73,7 @@ public class MainForm : Form
                 // Start
                 DaemonService.StartServiceProcess();
                 UpdateStatus();
+                _isStartedFromThisInstance = true;
             }
             else
             {
@@ -97,11 +100,37 @@ public class MainForm : Form
 
         _statusUpdateTimer = new Timer(_ => UpdateStatus(), null, 0, STATUS_UPDATE_INTERVAL);
         UserConfig.Saved += (_, _) => UpdateStatus();
+        
+        Closing += OnClosing;
+    }
+
+    private void OnClosing(object sender, CancelEventArgs e)
+    {
+        if (_currentStatus == -1 || !_isStartedFromThisInstance)
+        {
+            return;
+        }
+        switch (MessageBox.Show(this, UiResources.KeepRunningOnClose, MessageBoxButtons.YesNoCancel,
+                MessageBoxType.Question))
+        {
+            case DialogResult.Yes:
+                break;
+            case DialogResult.No:
+                DaemonService.SendKillMessage();
+                break;
+            default:
+                e.Cancel = true;
+                break;
+        }
     }
 
     private void UpdateStatus()
     {
         _currentStatus = DaemonService.SendGetStatusMessage();
+        if (_currentStatus == -1)
+        {
+            _isStartedFromThisInstance = false;
+        }
         Application.Instance.Invoke(UpdateStatusUi);
     }
 
