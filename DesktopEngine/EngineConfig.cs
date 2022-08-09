@@ -10,7 +10,7 @@ public struct EngineConfig
     public string MachineName;
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     public string AuthToken;
-    [MarshalAs(UnmanagedType.LPStr)]
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
     public string EnginePath;
     public int MaxHash;
     public int MaxThreads;
