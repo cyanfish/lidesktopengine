@@ -99,7 +99,7 @@ public class MainForm : Form
         Width = 400;
 
         _statusUpdateTimer = new Timer(_ => UpdateStatus(), null, 0, STATUS_UPDATE_INTERVAL);
-        UserConfig.Saved += (_, _) => UpdateStatus();
+        UserConfig.Saved += (_, _) => Application.Instance.Invoke(UpdateStatusUi);
         
         Closing += OnClosing;
     }

@@ -10,12 +10,12 @@ public class UserConfig
         try
         {
             File.WriteAllText(Paths.CONFIG_FILE_PATH, JsonConvert.SerializeObject(config));
-            Saved?.Invoke(null, EventArgs.Empty);
         }
         catch (Exception ex)
         {
             Logger.Instance.Error(ex, "Error loading config");
         }
+        Saved?.Invoke(null, EventArgs.Empty);
     }
 
     public static UserConfig Load()
