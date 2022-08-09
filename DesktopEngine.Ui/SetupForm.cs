@@ -116,18 +116,34 @@ public class SetupForm : Form
         _maxThreads.TextChanged += SaveChanges;
 
         _runOnStartup.Visible = OsServiceManager.Instance != null;
-        _runOnStartup.CheckedChanged += (_, _) =>
+        _runOnStartup.CheckedChanged += ToggleStartupServiceRegistration;
+    }
+
+    private void ToggleStartupServiceRegistration(object o, EventArgs eventArgs)
+    {
+        if (_runOnStartup.Checked ?? false)
         {
-            if ((bool) _runOnStartup.Checked)
+            try
             {
                 OsServiceManager.Instance.Register();
             }
-            else
+            catch (Exception ex)
+            {
+                Logger.Instance.Error(ex, "Error registering startup service");
+            }
+        }
+        else
+        {
+            try
             {
                 OsServiceManager.Instance.Unregister();
             }
-            SaveChanges(null, EventArgs.Empty);
-        };
+            catch (Exception ex)
+            {
+                Logger.Instance.Error(ex, "Error unregistering startup service");
+            }
+        }
+        SaveChanges(null, EventArgs.Empty);
     }
 
     private void SaveChanges(object sender, EventArgs args)

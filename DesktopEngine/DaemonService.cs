@@ -16,28 +16,42 @@ public static class DaemonService
     public static void Run()
     {
         // TODO: Validate and use config
-        new Timer(_ => _demoStatus = 5, null, 1500, 0);
-        using var pipeServer = new NamedPipeServerStream(PIPE_NAME, PipeDirection.InOut);
-        while (true)
+        try
         {
-            pipeServer.WaitForConnection();
-            var streamString = new StreamString(pipeServer);
-            var msg = streamString.ReadString();
-            if (msg == MSG_KILL)
+            new Timer(_ => _demoStatus = 5, null, 1500, 0);
+            using var pipeServer = new NamedPipeServerStream(PIPE_NAME, PipeDirection.InOut);
+            while (true)
             {
-                break;
+                pipeServer.WaitForConnection();
+                var streamString = new StreamString(pipeServer);
+                var msg = streamString.ReadString();
+                if (msg == MSG_KILL)
+                {
+                    break;
+                }
+                if (msg == MSG_GET_STATUS)
+                {
+                    streamString.WriteString(_demoStatus.ToString());
+                }
+                pipeServer.Disconnect();
             }
-            if (msg == MSG_GET_STATUS)
-            {
-                streamString.WriteString(_demoStatus.ToString());
-            }
-            pipeServer.Disconnect();
+        }
+        catch (Exception ex)
+        {
+            Logger.Instance.Error(ex, "Error running daemon server pipe");
         }
     }
 
     public static void SendKillMessage()
     {
-        SendMessage(MSG_KILL, false);
+        try
+        {
+            SendMessage(MSG_KILL, false);
+        }
+        catch (Exception ex)
+        {
+            Logger.Instance.Error(ex, "Could not send terminate message to daemon");
+        }
     }
 
     public static int SendGetStatusMessage()
@@ -67,10 +81,21 @@ public static class DaemonService
 
     public static void StartServiceProcess()
     {
-        Process.Start(new ProcessStartInfo
+        try
         {
-            FileName = Environment.ProcessPath!,
-            Arguments = "--service"
-        });
+            var process = Process.Start(new ProcessStartInfo
+            {
+                FileName = Environment.ProcessPath!,
+                Arguments = "--service"
+            });
+            if (process == null)
+            {
+                Logger.Instance.Error("Could not start daemon process");
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Instance.Error(ex, "Could not start daemon process");
+        }
     }
 }
