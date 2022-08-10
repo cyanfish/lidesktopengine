@@ -94,7 +94,7 @@ public class SetupForm : Form
             }
         };
 
-        var config = UserConfig.Load();
+        var config = UserConfigManager.Load();
         _id = config.Id;
         _machineName.Text = config.MachineName;
         _oauthToken.Text = config.AuthToken;
@@ -148,7 +148,7 @@ public class SetupForm : Form
 
     private void SaveChanges(object sender, EventArgs args)
     {
-        UserConfig.Save(new UserConfig
+        UserConfigManager.Save(new UserConfig
         {
             Id = _id,
             MachineName = _machineName.Text,

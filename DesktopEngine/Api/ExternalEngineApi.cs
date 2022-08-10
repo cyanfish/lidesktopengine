@@ -2,6 +2,9 @@
 
 namespace DesktopEngine;
 
+/// <summary>
+/// Bindings for the libexternalengine api.
+/// </summary>
 public class ExternalEngineApi
 {
     // The extension (.dll, .dylib, .so) will be automatically added per platform

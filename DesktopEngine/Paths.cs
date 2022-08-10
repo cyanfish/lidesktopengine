@@ -1,5 +1,8 @@
 namespace DesktopEngine;
 
+/// <summary>
+/// Helper to get paths for app configuration and logging files.
+/// </summary>
 public class Paths
 {
     private static readonly string APP_DATA = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);

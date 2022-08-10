@@ -74,7 +74,7 @@ public class MainForm : Form
             if (_currentStatus == -1)
             {
                 // Start
-                _daemonProcess = DaemonService.StartServiceProcess();
+                _daemonProcess = DaemonServiceClient.StartServiceProcess();
                 _starting = true;
                 _stopping = false;
                 Application.Instance.Invoke(UpdateStatusUi);
@@ -82,7 +82,7 @@ public class MainForm : Form
             else
             {
                 // Stop
-                if (!DaemonService.SendKillMessage())
+                if (!DaemonServiceClient.SendKillMessage())
                 {
                     _daemonProcess?.Kill();
                 }
@@ -109,7 +109,7 @@ public class MainForm : Form
         Width = 400;
 
         _statusUpdateTimer = new Timer(_ => UpdateStatus(), null, 0, STATUS_UPDATE_INTERVAL);
-        UserConfig.Saved += (_, _) => Application.Instance.Invoke(UpdateStatusUi);
+        UserConfigManager.Saved += (_, _) => Application.Instance.Invoke(UpdateStatusUi);
 
         Closing += OnClosing;
     }
@@ -127,7 +127,7 @@ public class MainForm : Form
             case DialogResult.Yes:
                 break;
             case DialogResult.No:
-                DaemonService.SendKillMessage();
+                DaemonServiceClient.SendKillMessage();
                 break;
             default:
                 e.Cancel = true;
@@ -137,7 +137,7 @@ public class MainForm : Form
 
     private void UpdateStatus()
     {
-        _currentStatus = DaemonService.SendGetStatusMessage();
+        _currentStatus = DaemonServiceClient.SendGetStatusMessage();
         if (_currentStatus == -1)
         {
             _stopping = false;
@@ -151,7 +151,7 @@ public class MainForm : Form
 
     private void UpdateStatusUi()
     {
-        var config = UserConfig.Load();
+        var config = UserConfigManager.Load();
 
         bool isRunning = _currentStatus != -1;
         _startButton.Text = isRunning ? UiResources.Stop : UiResources.Start;

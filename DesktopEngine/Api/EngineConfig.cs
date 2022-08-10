@@ -2,6 +2,9 @@ using System.Runtime.InteropServices;
 
 namespace DesktopEngine;
 
+/// <summary>
+/// Configuration for the libexternalengine api.
+/// </summary>
 public struct EngineConfig
 {
     [MarshalAs(UnmanagedType.LPUTF8Str)]

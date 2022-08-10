@@ -4,6 +4,10 @@ using NLog.Targets;
 
 namespace DesktopEngine;
 
+/// <summary>
+/// Provides a static NLog.Logger instance that writes to a "log.txt" file in the "%APPDATA%/lidesktopengine" folder.
+/// On Mac and Linux this is "~/.config/lidesktopengine".
+/// </summary>
 public static class Logger
 {
     public static NLog.Logger Instance { get; }
