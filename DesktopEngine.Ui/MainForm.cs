@@ -8,7 +8,7 @@ public class MainForm : Form
 {
     private const int STATUS_UPDATE_INTERVAL = 1000;
 
-    private static readonly Bitmap STATUS_INACTIVE =  DrawStatusBitmap(Color.FromArgb(96, 96, 96));
+    private static readonly Bitmap STATUS_INACTIVE = DrawStatusBitmap(Color.FromArgb(96, 96, 96));
     private static readonly Bitmap STATUS_OK = DrawStatusBitmap(Color.FromArgb(0, 160, 0));
     private static readonly Bitmap STATUS_WARN = DrawStatusBitmap(Color.FromArgb(200, 150, 0));
     private static readonly Bitmap STATUS_ERROR = DrawStatusBitmap(Color.FromArgb(160, 0, 0));
@@ -100,7 +100,7 @@ public class MainForm : Form
 
         _statusUpdateTimer = new Timer(_ => UpdateStatus(), null, 0, STATUS_UPDATE_INTERVAL);
         UserConfig.Saved += (_, _) => Application.Instance.Invoke(UpdateStatusUi);
-        
+
         Closing += OnClosing;
     }
 
@@ -111,7 +111,7 @@ public class MainForm : Form
             return;
         }
         switch (MessageBox.Show(this, UiResources.KeepRunningOnClose, MessageBoxButtons.YesNoCancel,
-                MessageBoxType.Question))
+                    MessageBoxType.Question))
         {
             case DialogResult.Yes:
                 break;
@@ -155,28 +155,40 @@ public class MainForm : Form
             _statusIndicator.Visible = true;
             _statusIndicator.Image = STATUS_OK;
         }
+        else if (_currentStatus == ExternalEngineApi.CONNECTED_RUNNING)
+        {
+            _statusLabel.Text = UiResources.EngineRunning;
+            _statusIndicator.Visible = true;
+            _statusIndicator.Image = STATUS_OK;
+        }
         else if (_currentStatus == ExternalEngineApi.DISCONNECTED)
         {
             _statusLabel.Text = UiResources.TryingToConnect;
             _statusIndicator.Visible = true;
             _statusIndicator.Image = STATUS_WARN;
-            // var status = ExternalEngineApi.GetStatus();
-            // var statusText = status switch
-            // {
-            //     ExternalEngineApi.NOT_STARTED => "Press Start to connect",
-            //     ExternalEngineApi.DISCONNECTED => "Trying to connect...",
-            //     ExternalEngineApi.CONNECTED_IDLE => "Connected, waiting for analysis request",
-            //     ExternalEngineApi.CONNECTED_RUNNING => "Connected, analysis in progress",
-            //     ExternalEngineApi.ENGINE_ERROR => "Error with engine setup",
-            //     ExternalEngineApi.UNKNOWN_ERROR => "Unknown error",
-            //     _ => "Unknown status"
-            // };
-            // _statusLabel.Text = statusText;
+        }
+        else if (_currentStatus == ExternalEngineApi.ENGINE_ERROR)
+        {
+            _statusLabel.Text = UiResources.EngineError;
+            _statusIndicator.Visible = true;
+            _statusIndicator.Image = STATUS_ERROR;
+        }
+        else if (_currentStatus == ExternalEngineApi.UNKNOWN_ERROR)
+        {
+            _statusLabel.Text = UiResources.UnknownError;
+            _statusIndicator.Visible = true;
+            _statusIndicator.Image = STATUS_ERROR;
         }
         else if (_currentStatus == -1)
         {
             _statusLabel.Text = "";
             _statusIndicator.Visible = false;
+        }
+        else
+        {
+            _statusLabel.Text = UiResources.UnknownStatus;
+            _statusIndicator.Visible = true;
+            _statusIndicator.Image = STATUS_ERROR;
         }
     }
 

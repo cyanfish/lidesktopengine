@@ -31,7 +31,8 @@ public static class DaemonService
                 }
                 if (msg == MSG_GET_STATUS)
                 {
-                    streamString.WriteString(_demoStatus.ToString());
+                    // streamString.WriteString(_demoStatus.ToString());
+                    streamString.WriteString(ExternalEngineApi.GetStatus().ToString());
                 }
                 pipeServer.Disconnect();
             }

@@ -15,4 +15,22 @@
       <ProjectReference Include="..\DesktopEngine\DesktopEngine.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.dylib" Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>lib/liblibexternalengine.dylib</Link>
+            <TargetPath>liblibexternalengine.dylib</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.dll" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>lib/liblibexternalengine.dll</Link>
+            <TargetPath>liblibexternalengine.dll</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.so" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>lib/liblibexternalengine.so</Link>
+            <TargetPath>liblibexternalengine.so</TargetPath>
+        </ContentWithTargetPath>
+    </ItemGroup>
+
 </Project>

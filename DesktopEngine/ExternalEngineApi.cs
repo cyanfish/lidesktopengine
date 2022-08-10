@@ -4,13 +4,8 @@ namespace DesktopEngine;
 
 public class ExternalEngineApi
 {
-// #if WINDOWS
-//     private const string DLL_NAME = "external_engine.dll";
-// #elif MACOS
-     private const string DLL_NAME = "/Users/ben/Devel/external-engine/target/debug/liblibexternalengine.dylib";
-// #else
-    // private const string DLL_NAME = "external_engine.so";
-// #endif
+    // The extension (.dll, .dylib, .so) will be automatically added per platform
+    private const string DLL_NAME = "liblibexternalengine";
 
     public const int SUCCESS = 0;
     public const int UNKNOWN_ERROR = 1;

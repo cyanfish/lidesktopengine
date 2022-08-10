@@ -69,6 +69,18 @@
     <data name="WaitingForAnalysis" xml:space="preserve">
         <value>Waiting for analysis request...</value>
     </data>
+    <data name="EngineRunning" xml:space="preserve">
+        <value>Analysis in progress...</value>
+    </data>
+    <data name="EngineError" xml:space="preserve">
+        <value>Error with engine setup</value>
+    </data>
+    <data name="UnknownError" xml:space="preserve">
+        <value>Unknown error</value>
+    </data>
+    <data name="UnknownStatus" xml:space="preserve">
+        <value>Unknown status</value>
+    </data>
     <data name="RunOnStartup" xml:space="preserve">
         <value>Run on startup</value>
     </data>

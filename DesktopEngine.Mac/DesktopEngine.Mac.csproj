@@ -22,4 +22,12 @@
         <PackageReference Include="Eto.Platform.Mac64" Version="2.7.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.dylib">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>lib/liblibexternalengine.dylib</Link>
+            <TargetPath>liblibexternalengine.dylib</TargetPath>
+        </ContentWithTargetPath>
+    </ItemGroup>
+
 </Project>

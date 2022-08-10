@@ -147,6 +147,30 @@ namespace DesktopEngine.Ui {
             }
         }
         
+        internal static string EngineRunning {
+            get {
+                return ResourceManager.GetString("EngineRunning", resourceCulture);
+            }
+        }
+        
+        internal static string EngineError {
+            get {
+                return ResourceManager.GetString("EngineError", resourceCulture);
+            }
+        }
+        
+        internal static string UnknownError {
+            get {
+                return ResourceManager.GetString("UnknownError", resourceCulture);
+            }
+        }
+        
+        internal static string UnknownStatus {
+            get {
+                return ResourceManager.GetString("UnknownStatus", resourceCulture);
+            }
+        }
+        
         internal static string RunOnStartup {
             get {
                 return ResourceManager.GetString("RunOnStartup", resourceCulture);

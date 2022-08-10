@@ -20,4 +20,12 @@
         <PackageReference Include="Eto.Platform.Wpf" Version="2.7.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>lib/liblibexternalengine.dll</Link>
+            <TargetPath>liblibexternalengine.dll</TargetPath>
+        </ContentWithTargetPath>
+    </ItemGroup>
+
 </Project>
