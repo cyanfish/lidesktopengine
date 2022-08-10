@@ -23,7 +23,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.dylib">
+        <ContentWithTargetPath Include="../external-engine/target/aarch64-apple-darwin/debug/liblibexternalengine.dylib"
+                               Condition="'$(RuntimeIdentifier)' == 'osx-arm64'">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>lib/liblibexternalengine.dylib</Link>
+            <TargetPath>liblibexternalengine.dylib</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Include="../external-engine/target/x86_64-apple-darwin/debug/liblibexternalengine.dylib"
+                               Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Link>lib/liblibexternalengine.dylib</Link>
             <TargetPath>liblibexternalengine.dylib</TargetPath>

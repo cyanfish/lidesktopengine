@@ -16,17 +16,28 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.dylib" Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+        <ContentWithTargetPath Include="../external-engine/target/aarch64-apple-darwin/debug/liblibexternalengine.dylib"
+                               Condition="$([MSBuild]::IsOSPlatform('OSX')) and
+                               '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64'">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Link>lib/liblibexternalengine.dylib</Link>
             <TargetPath>liblibexternalengine.dylib</TargetPath>
         </ContentWithTargetPath>
-        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.dll" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+        <ContentWithTargetPath Include="../external-engine/target/x86_64-apple-darwin/debug/liblibexternalengine.dylib"
+                               Condition="$([MSBuild]::IsOSPlatform('OSX')) and
+                               '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>lib/liblibexternalengine.dylib</Link>
+            <TargetPath>liblibexternalengine.dylib</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.dll"
+                               Condition="$([MSBuild]::IsOSPlatform('Windows'))">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Link>lib/liblibexternalengine.dll</Link>
             <TargetPath>liblibexternalengine.dll</TargetPath>
         </ContentWithTargetPath>
-        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.so" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+        <ContentWithTargetPath Include="../external-engine/target/debug/liblibexternalengine.so"
+                               Condition="$([MSBuild]::IsOSPlatform('Linux'))">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Link>lib/liblibexternalengine.so</Link>
             <TargetPath>liblibexternalengine.so</TargetPath>
