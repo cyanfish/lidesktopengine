@@ -135,6 +135,18 @@ namespace DesktopEngine.Ui {
             }
         }
         
+        internal static string StartingService {
+            get {
+                return ResourceManager.GetString("StartingService", resourceCulture);
+            }
+        }
+        
+        internal static string StoppingService {
+            get {
+                return ResourceManager.GetString("StoppingService", resourceCulture);
+            }
+        }
+        
         internal static string TryingToConnect {
             get {
                 return ResourceManager.GetString("TryingToConnect", resourceCulture);
@@ -162,12 +174,6 @@ namespace DesktopEngine.Ui {
         internal static string UnknownError {
             get {
                 return ResourceManager.GetString("UnknownError", resourceCulture);
-            }
-        }
-        
-        internal static string UnknownStatus {
-            get {
-                return ResourceManager.GetString("UnknownStatus", resourceCulture);
             }
         }
         

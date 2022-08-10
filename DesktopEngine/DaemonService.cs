@@ -9,7 +9,7 @@ public static class DaemonService
     public static string MSG_GET_STATUS = "getstatus";
     public static string MSG_KILL = "kill";
     // The timeout is small since pipe connections should be on the local machine only.
-    private const int TIMEOUT = 1000;
+    private const int TIMEOUT = 500;
 
     private static int _demoStatus = 4;
     
@@ -43,15 +43,17 @@ public static class DaemonService
         }
     }
 
-    public static void SendKillMessage()
+    public static bool SendKillMessage()
     {
         try
         {
             SendMessage(MSG_KILL, false);
+            return true;
         }
         catch (Exception ex)
         {
             Logger.Instance.Error(ex, "Could not send terminate message to daemon");
+            return false;
         }
     }
 
@@ -80,7 +82,7 @@ public static class DaemonService
         return streamString.ReadString();
     }
 
-    public static void StartServiceProcess()
+    public static Process StartServiceProcess()
     {
         try
         {
@@ -93,10 +95,12 @@ public static class DaemonService
             {
                 Logger.Instance.Error("Could not start daemon process");
             }
+            return process;
         }
         catch (Exception ex)
         {
             Logger.Instance.Error(ex, "Could not start daemon process");
+            return null;
         }
     }
 }

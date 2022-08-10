@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics;
 using Eto.Forms;
 using Eto.Drawing;
 
@@ -6,7 +7,7 @@ namespace DesktopEngine.Ui;
 
 public class MainForm : Form
 {
-    private const int STATUS_UPDATE_INTERVAL = 1000;
+    private const int STATUS_UPDATE_INTERVAL = 2000;
 
     private static readonly Bitmap STATUS_INACTIVE = DrawStatusBitmap(Color.FromArgb(96, 96, 96));
     private static readonly Bitmap STATUS_OK = DrawStatusBitmap(Color.FromArgb(0, 160, 0));
@@ -20,7 +21,9 @@ public class MainForm : Form
 
     private readonly Timer _statusUpdateTimer;
     private int _currentStatus;
-    private bool _isStartedFromThisInstance;
+    private Process _daemonProcess;
+    private bool _starting;
+    private bool _stopping;
 
     public MainForm()
     {
@@ -71,15 +74,22 @@ public class MainForm : Form
             if (_currentStatus == -1)
             {
                 // Start
-                DaemonService.StartServiceProcess();
-                UpdateStatus();
-                _isStartedFromThisInstance = true;
+                _daemonProcess = DaemonService.StartServiceProcess();
+                _starting = true;
+                _stopping = false;
+                Application.Instance.Invoke(UpdateStatusUi);
             }
             else
             {
                 // Stop
-                DaemonService.SendKillMessage();
-                UpdateStatus();
+                if (!DaemonService.SendKillMessage())
+                {
+                    _daemonProcess?.Kill();
+                }
+                _daemonProcess = null;
+                _starting = false;
+                _stopping = true;
+                Application.Instance.Invoke(UpdateStatusUi);
             }
         };
         _startButton.Command = startCommand;
@@ -106,8 +116,9 @@ public class MainForm : Form
 
     private void OnClosing(object sender, CancelEventArgs e)
     {
-        if (_currentStatus == -1 || !_isStartedFromThisInstance)
+        if (_daemonProcess == null)
         {
+            // This instance didn't start a daemon process
             return;
         }
         switch (MessageBox.Show(this, UiResources.KeepRunningOnClose, MessageBoxButtons.YesNoCancel,
@@ -129,7 +140,11 @@ public class MainForm : Form
         _currentStatus = DaemonService.SendGetStatusMessage();
         if (_currentStatus == -1)
         {
-            _isStartedFromThisInstance = false;
+            _stopping = false;
+        }
+        else
+        {
+            _starting = false;
         }
         Application.Instance.Invoke(UpdateStatusUi);
     }
@@ -140,16 +155,22 @@ public class MainForm : Form
 
         bool isRunning = _currentStatus != -1;
         _startButton.Text = isRunning ? UiResources.Stop : UiResources.Start;
-        _startButton.Enabled = isRunning || config.IsValid;
+        _startButton.Enabled = (isRunning || config.IsValid) && !_starting && !_stopping;
 
-        if (!config.IsValid && !isRunning)
+        if (!config.IsValid && !isRunning && !_starting && !_stopping)
         {
             _statusLabel.Text = "";
             _statusIndicator.Visible = false;
             return;
         }
 
-        if (_currentStatus == ExternalEngineApi.CONNECTED_IDLE)
+        if (_stopping)
+        {
+            _statusLabel.Text = UiResources.StoppingService;
+            _statusIndicator.Visible = true;
+            _statusIndicator.Image = STATUS_WARN;
+        }
+        else if (_currentStatus == ExternalEngineApi.CONNECTED_IDLE)
         {
             _statusLabel.Text = UiResources.WaitingForAnalysis;
             _statusIndicator.Visible = true;
@@ -179,16 +200,16 @@ public class MainForm : Form
             _statusIndicator.Visible = true;
             _statusIndicator.Image = STATUS_ERROR;
         }
-        else if (_currentStatus == -1)
+        else if (_starting)
         {
-            _statusLabel.Text = "";
-            _statusIndicator.Visible = false;
+            _statusLabel.Text = UiResources.StartingService;
+            _statusIndicator.Visible = true;
+            _statusIndicator.Image = STATUS_WARN;
         }
         else
         {
-            _statusLabel.Text = UiResources.UnknownStatus;
-            _statusIndicator.Visible = true;
-            _statusIndicator.Image = STATUS_ERROR;
+            _statusLabel.Text = "";
+            _statusIndicator.Visible = false;
         }
     }
 

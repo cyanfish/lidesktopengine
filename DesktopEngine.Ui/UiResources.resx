@@ -63,6 +63,12 @@
     <data name="Browse" xml:space="preserve">
         <value>Browse</value>
     </data>
+    <data name="StartingService" xml:space="preserve">
+        <value>Starting engine service...</value>
+    </data>
+    <data name="StoppingService" xml:space="preserve">
+        <value>Stopping engine service...</value>
+    </data>
     <data name="TryingToConnect" xml:space="preserve">
         <value>Trying to connect...</value>
     </data>
@@ -77,9 +83,6 @@
     </data>
     <data name="UnknownError" xml:space="preserve">
         <value>Unknown error</value>
-    </data>
-    <data name="UnknownStatus" xml:space="preserve">
-        <value>Unknown status</value>
     </data>
     <data name="RunOnStartup" xml:space="preserve">
         <value>Run on startup</value>
